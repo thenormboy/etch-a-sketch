@@ -12,3 +12,11 @@ for (i = 0; i < gridSize; i++) {
         container.appendChild(content);
     }
 }
+
+const pixels = document.querySelectorAll('.content');
+
+pixels.forEach((content) => {
+    content.addEventListener('mouseover', () => {
+        content.style.background = 'black';
+    })
+});
