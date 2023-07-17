@@ -1,22 +1,49 @@
-const gridSize = 16;
 const container = document.querySelector('.container');
-let pixelSizePercent = (1 / gridSize) * 100;
 
-for (i = 0; i < gridSize; i++) {
-    for (j = 0; j < gridSize; j++) {
-        const content = document.createElement('div');
-        content.classList.add('content');
-        content.style.width = pixelSizePercent + '%';
-        content.style.height = pixelSizePercent + '%';
+function createSketchBox(gridSize) {
 
-        container.appendChild(content);
+    for (i = 0; i < gridSize; i++) {
+        for (j = 0; j < gridSize; j++) {
+
+            let pixelSizePercent = (1 / gridSize) * 100;
+
+            const content = document.createElement('div');
+            content.classList.add('content');
+            content.style.width = pixelSizePercent + '%';
+            content.style.height = pixelSizePercent + '%';
+
+            container.appendChild(content);
+        }
     }
 }
 
-const pixels = document.querySelectorAll('.content');
+function destroySketchBox() {
+    const elements = document.querySelectorAll('.content');
+    elements.forEach((content) => {
+        container.removeChild(content)
+    });
+}
 
-pixels.forEach((content) => {
-    content.addEventListener('mouseover', () => {
-        content.style.background = 'black';
-    })
+const sizeInput = document.querySelector('.sizeInput');
+const result = document.querySelector('.result');
+
+createSketchBox(24);
+
+sizeInput.addEventListener('change', () => {
+    destroySketchBox();
+    if (sizeInput.value >= 1 && sizeInput.value <= 100) {
+        result.textContent = 'Good Choice..'
+        createSketchBox(sizeInput.value);
+
+        const pixels = document.querySelectorAll('.content');
+
+        pixels.forEach((content) => {
+            content.addEventListener('mouseover', () => {
+                content.style.background = 'black';
+            })
+        });
+
+    } else {
+        result.textContent = 'ERROR';
+    }
 });
