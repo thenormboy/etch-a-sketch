@@ -24,24 +24,28 @@ function destroySketchBox() {
     });
 }
 
+function pixelEffect(color) {
+    const pixels = document.querySelectorAll('.content');
+
+    pixels.forEach((content) => {
+        content.addEventListener('mouseover', () => {
+            content.style.background = color;
+        })
+    });
+}
+
 const sizeInput = document.querySelector('.sizeInput');
 const result = document.querySelector('.result');
 
 createSketchBox(24);
+pixelEffect('black');
 
 sizeInput.addEventListener('change', () => {
     destroySketchBox();
     if (sizeInput.value >= 1 && sizeInput.value <= 100) {
         result.textContent = 'Good Choice..'
         createSketchBox(sizeInput.value);
-
-        const pixels = document.querySelectorAll('.content');
-
-        pixels.forEach((content) => {
-            content.addEventListener('mouseover', () => {
-                content.style.background = 'black';
-            })
-        });
+        pixelEffect('black');
 
     } else {
         result.textContent = 'ERROR';
